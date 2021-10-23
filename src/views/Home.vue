@@ -23,7 +23,7 @@
         <!-- 菜单1 -->
         <div class="menu1" id="menu_btns">
           <el-form-item class="menu_btn" id="website_btn">
-            <el-button @click="menu1" @keyup.enter.native="menu1">General website</el-button>
+            <el-button @click="menu1" @keyup.enter.native="menu1">Pets</el-button>
 
           </el-form-item>
         </div>
@@ -31,7 +31,7 @@
         <!-- 菜单2 -->
         <div class="menu2" id="menu_btns">
           <el-form-item class="menu_btn" id="study_btn">
-            <el-button @click="menu2" @keyup.enter.native="menu2">Reptile</el-button>
+            <el-button @click="menu2" @keyup.enter.native="menu2">Payment</el-button>
           </el-form-item>
         </div>
 

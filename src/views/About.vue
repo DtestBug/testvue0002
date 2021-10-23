@@ -26,10 +26,12 @@ tr, h1 {
 	color: #00FF00;
 }
 .model1 {
+	flex-grow: 1;
+	position: absolute;
   background-image: url(../../src/img/about_bg3.jpg);
   margin: 0;
   height: 100%;
-  padding: 10%;
+  width: 100%;
   font-family: sans-serif;
   background-size: 100% 100%;
   text-align: left;

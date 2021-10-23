@@ -44,19 +44,58 @@
         </el-form-item>
 
         <!-- 注册 -->
-        <el-form-item class="btns" id="register_btn">
-          <a
-            href="https://github.com/DtestBug/python-personal-problem/issues/32"
-            >Register</a
-          >
-        </el-form-item>
-
+        <el-button class="resgister" type="text" @click="dialog = true">Resgiter</el-button>
+  
         <!-- 小图 -->
         <img src="../../src/img/login_xb.jpg" alt="Smiley face" width="100%" height="100%">
 
 
       </el-form>
     </div>
+
+      <el-drawer
+        title="用 户 注 册 表"
+        :before-close="handleClose"
+        :visible.sync="dialog"
+        custom-class="demo-drawer"
+        ref="drawer"
+      >
+        <div class="demo-drawer__content">
+          <el-form :model="registerform">
+            <el-form-item label="用户名" :label-width="formLabelWidth">
+              <el-input v-model="registerform.username" autocomplete="off"></el-input>
+            </el-form-item>
+
+            <el-form-item label="密码" :label-width="formLabelWidth">
+              <el-input v-model="registerform.password" autocomplete="off"></el-input>
+            </el-form-item>
+          </el-form>
+
+          <el-form :model="form">
+            <el-form-item label="确认密码" :label-width="formLabelWidth">
+              <el-input
+                v-model="registerform.password_confirm"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
+
+            <el-form-item label="邮箱" :label-width="formLabelWidth">
+              <el-input
+                v-model="registerform.email"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
+          </el-form>
+
+          <div class="demo-drawer__footer">
+            <el-button @click="cancelForm">取 消</el-button>
+            <el-button type="primary" @click="submit" :loading="loading">{{
+              loading ? "提交中 ..." : "提 交"
+            }}</el-button>
+          </div>
+        </div>
+      </el-drawer>
+
   </div>
 </html>
 </template>
@@ -68,6 +107,26 @@ import axios from "axios";
 export default {
   data() {
     return {
+            // 宠物表单
+      registerform: {
+        username: "",
+        password: "",
+        password_confirm: "",
+        email: "",
+      },
+      dialog: false,
+      loading: false,
+      gridData: [],
+      form: {
+        name: "",
+        delivery: false,
+        type: [],
+        resource: "",
+        desc: "",
+      },
+      formLabelWidth: "80px",
+      timer: null,
+
       // 登录表单的数据
       loginForm: {
         username: "",
@@ -128,6 +187,32 @@ export default {
           //   console.log(Response.data.data);
           this.slogan = Response.data.data;
         });
+    },
+
+    open1() {
+    this.$message({
+      message: '用户已注册',
+      type: 'success'
+      });
+    },
+
+    submit() {
+      const { data: res } = this.$http
+      .post("/register/", this.registerform)
+      .then(() => {
+      this.$refs.drawer.closeDrawer();
+      this.open1()
+    console.log(this.registerform.data)
+        });
+    },
+    handleClose(done) {
+        this.dialog = false;
+        this.loading = false;
+    },
+    cancelForm() {
+        this.loading = false;
+        this.dialog = false;
+        clearTimeout(this.timer);
     },
   },
 };
@@ -208,6 +293,11 @@ h5 {
   // 按钮设置
   font-weight: bold;
 }
+
+.resgister {
+  text-align: end;
+}
+
 </style>
 
 // 取消作用域可以更改全局
@@ -237,4 +327,31 @@ h5 {
   left: 62px;
   line-height: 2;
 }
+
+
+element.style {
+    width: 100%;
+}
+
+div.drawer.rtl.demo-drawer {
+  text-align: center;
+}
+
+
+.el-drawer__header {
+    font-size: 28px;
+    color: #000;
+    font-weight: bold;
+}
+.el-input .el-input__inner {
+    color: black;
+}
+.el-form-item__label {
+    color: black;
+    font-weight: bold;
+}
+.el-table::before {
+    height: 0;
+}
+
 </style>
