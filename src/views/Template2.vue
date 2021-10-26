@@ -176,6 +176,7 @@ export default {
     created() {
         this.getdata();
     },
+    
     methods: {
         //分页
         handleSizeChange(val) {
@@ -356,5 +357,9 @@ export default {
     background: 0 0;
     width: 100px;
     color: #409eff;
+}
+.el-icon-date:before{
+    content:''
+
 }
 </style>
