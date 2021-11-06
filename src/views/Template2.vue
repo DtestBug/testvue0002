@@ -221,7 +221,7 @@ export default {
                     var res1 = res.data;
                     res.tableData = res1;
                     this.tableData = [res1];
-                    console.log(self.tableData);
+                    // console.log(res1);
                     // 数据不存在弹框
                     if (res.data.code == 404)
                         this.$message({
