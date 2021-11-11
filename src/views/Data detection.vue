@@ -31,7 +31,7 @@
                 </el-form-item>
 
             </el-form>
-
+        </div>
             <el-drawer
                 title="宠 物 信 息 表"
                 :before-close="handleClose"
@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </el-drawer>
-        </div>
+        
 
         <el-table class="table" :data="tableData">
             <el-table-column prop="name" label="Name"> </el-table-column>
@@ -315,6 +315,12 @@ export default {
 }
 .pagination {
     text-align: end;
+}
+.dh {
+    color: black;
+    font-weight: bold;
+	padding-top: 10px;
+	padding-left: 10px;
 }
 </style>
 

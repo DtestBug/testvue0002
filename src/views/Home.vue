@@ -126,7 +126,7 @@ export default {
   height: 100%;
   width: 100% ;
   background-color: red; /* 浏览器不支持时显示 */
-  background-image: linear-gradient(#FF6633, #FFCCCC);
+  background-image: linear-gradient(#7c7676, #2e1818);
 }
 
 // 上方盒子1

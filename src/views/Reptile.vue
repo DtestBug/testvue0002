@@ -37,17 +37,17 @@
 
 	<!-- 結果輸出盒 -->
 	<div class='model2'>
-		<h2>Result</h2>
+		<!-- <h2>Result</h2> -->
 
 		<hr>
 
         <!-- 数据展示 -->
-        <el-table class="table" :data="tableData">
+        <el-table class="res_table" :data="tableData">
 			<!-- userCd -->
-            <el-table-column prop="imAccount" label="UserCd"> </el-table-column>
+            <el-table-column class="imAccount" prop="imAccount" label="UserCd"> </el-table-column>
 			
 			<!-- 时间 -->
-			<el-table-column prop="time" label="Time"> </el-table-column>
+			<el-table-column class="time" prop="time" label="Time"> </el-table-column>
         </el-table>
 
 	</div>
@@ -175,10 +175,30 @@ export default {
     font-weight: bold;
 	padding-top: 10px;
 	padding-left: 10px;
-
 }
 
 .el-input {
     width: 100%;
+}
+
+.el-table  { 
+	background-color: transparent;
+}
+</style>
+
+
+<style lang="less">
+// 表单样式
+.el-table th,  
+.el-table tr {
+    background: transparent;
+    border: none;
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.el-input .el-input__inner {
+	width: 80%;
 }
 </style>
