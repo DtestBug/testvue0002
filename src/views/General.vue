@@ -1,360 +1,154 @@
 <template>
-    <div>
-        <div class="dh">
-            <el-form
-                :inline="true"
-                :model="formInline"
-                class="demo-form-inline"
-            >
-                <el-form-item label="">
-                    <el-input
-                        oninput="if(value.length > 11)value = value.slice(0, 10)"
-                        v-model="formInline.name"
-                        placeholder="输入宠物名可以查删改"
-                    ></el-input>
-            </el-form-item>
+<html>
+<div>
+	<div>
+    	<div id="echartss"></div>
 
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit">查询</el-button>
-                </el-form-item>
-
-                <el-form-item>
-                    <el-button type="primary" @click="delSubmit">删除</el-button>
-                </el-form-item>
-
-                <el-form-item>
-                    <el-button type="primary" @click="upSubmit">修改</el-button>
-                </el-form-item>
-
-                <el-form-item>
-                   <el-button type="primary" @click="dialog = true">新增</el-button>
-                </el-form-item>
-
-            </el-form>
-
-            <el-drawer
-                title="宠 物 信 息 表"
-                :before-close="handleClose"
-                :visible.sync="dialog"
-                custom-class="demo-drawer"
-                ref="drawer"
-            >
-                <div class="demo-drawer__content">
-                    <el-form :model="petsform">
-                        <el-form-item
-                            label="宠物名字"
-                            :label-width="formLabelWidth"
-                        >
-                            <el-input
-                                v-model="petsform.name"
-                                autocomplete="off"
-                            ></el-input>
-                        </el-form-item>
-
-                        <el-form-item
-                            label="体重"
-                            :label-width="formLabelWidth"
-                        >
-                            <el-input
-                                v-model="petsform.weight"
-                                autocomplete="off"
-                            ></el-input>
-                        </el-form-item>
-                    </el-form>
-
-                    <el-form :model="form">
-                        <el-form-item
-                            label="出生日期"
-                            :label-width="formLabelWidth"
-                        >
-                            <el-date-picker
-                                type="date"
-                                placeholder="选择日期"
-                                v-model="petsform.birthday"
-                                value-format="yyyy-MM-dd"
-                                style="width: 100%"
-                            ></el-date-picker>
-                        </el-form-item>
-
-                        <el-form-item
-                            label="品种"
-                            :label-width="formLabelWidth"
-                        >
-                            <el-input
-                                v-model="petsform.varieties"
-                                autocomplete="off"
-                            ></el-input>
-                        </el-form-item>
-
-                        <el-form-item
-                            label="颜色"
-                            :label-width="formLabelWidth"
-                        >
-                            <el-input
-                                v-model="petsform.color"
-                                autocomplete="off"
-                            ></el-input>
-                        </el-form-item>
-                    </el-form>
-
-                    <div class="demo-drawer__footer">
-                        <el-button @click="cancelForm">取 消</el-button>
-                        <el-button
-                            type="primary"
-                            @click="submit"
-                            :loading="loading"
-                            >{{ loading ? "提交中 ..." : "提 交" }}</el-button
-                        >
-                    </div>
-                </div>
-            </el-drawer>
-        </div>
-
-        <el-table class="table" :data="tableData">
-            <el-table-column prop="name" label="Name"> </el-table-column>
-
-            <el-table-column prop="weight" label="Weight"> </el-table-column>
-
-            <el-table-column prop="birthday" label="Birthday">
-            </el-table-column>
-
-            <el-table-column prop="varieties" label="Varieties">
-            </el-table-column>
-
-            <el-table-column prop="color" label="Color"> </el-table-column>
-        </el-table>
-        <div class="pagination">
-            <!-- 分页功能 -->
-            <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="currentPage"
-                layout="total, sizes, prev, pager, next, jumper"
-            >
-            </el-pagination>
-        </div>
-    </div>
+	</div>
+</div>
+</html>
 </template>
 
-
 <script>
+// cnpm install echarts --save   安装扇形图
+//先要导入依赖的实例
+import * as echarts from 'echarts'
 export default {
-    // 设置头部标题都可以用 document.title，这个是通用的，我也可以这样设置，如下
-    page() {
-        document.title = "个人中心";
+
+ 
+//挂载前初始化echarts实例
+mounted: function () {
+  // 基于准备好的dom，初始化echarts实例
+  let myChart = echarts.init(document.getElementById('echartss'))
+  // 绘制图表，this.echarts1_option是数据
+  myChart.setOption(this.echarts1_option)
+},
+
+
+	//在echarts_option中写东西就行了，官方文档直接下这里就可以自己玩了
+	data() {
+		return{
+			echarts1_option:{
+//需要的话下面内容copy到主体代码块即可
+  backgroundColor: 'transparent',
+  //标题
+  title: {
+    text: '流量来源',
+    subtext:'饼图示例',
+    left: 'center',
+    top: 20,
+    textStyle: {
+      color: '#ccc',
+      fontStyle:'italic'//标题字体
+    }
+  },
+  //弹窗，响应鼠标指向，显示具体细节
+  tooltip : {
+    trigger: 'item',//以具体项目触发弹窗
+    /*
+    内容格式器，一共有abcd四个代号，例如在饼图中，{a}指系列，即流量来源，{b}指数据项目，如搜索引擎，{c}指数值，如
+    value，{d}百分比。{x}本身代表了相应字符，可以和其他字符拼凑，在弹窗中显示
+    */
+    formatter: "{a} <br/>{b} : {c} ({d}%)"
+  },
+  //图例，选择要显示的项目
+  legend:{
+    orient:'vertical',
+    left:'left',
+    textStyle:{
+      color:'#c8c8d0'
     },
-    data() {
-        return {
-            // 分页
-            currentPage: 1,
-            formInline: {
-                name: "",
-            },
-            // 宠物表单
-            petsform: {
-                name: "",
-                weight: "",
-                birthday: "",
-                varieties: "",
-                color: "",
-            },
-            tableData: [],
-            dialog: false,
-            loading: false,
-            gridData: [],
-            form: {
-                name: "",
-                delivery: false,
-                type: [],
-                resource: "",
-                desc: "",
-            },
-            formLabelWidth: "80px",
-            timer: null,
-        };
-    },
-    created() {
-        this.getdata();
-    },
-    methods: {
-        //分页
-        handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
-        },
-        handleCurrentChange(val) {
-            var self = this;
-            // console.log(`${val}`);
-            const res = this.$http
-                .get("/pets/", { params: { page: `${val}` } })
-                .catch((e) => {
-                    return { data: { code: "404" } };
-                })
-                .then(function (Response) {
-                    // console.log(Response)
-                    if (Response.status == 200) {
-                        var res = Response.data.results;
-                        for (var a = 0; a < res.length; a += 1) {
-                            //typeof 类型(参数)
-                            res[a]["weight"] = res[a]["weight"] + " / KG";
-                        }
-                        self.tableData = res;
-                    }
-                    if (Response.data.code == 404) {
-                        self.$message({ message: "页码不存在", type: "error" });
-                    }
-                });
-        },
-        open1() {
-            this.$message({
-                message: "数据已创建",
-                type: "success",
-            });
-        },
-        // 查询
-        onSubmit() {
-            
-            const res = this.$http
-                .get("/pets/" + this.formInline.name) // 请求userdata/{参数}接口  this.formInline:{usernmae}
-                .then((res) => {
-                    // 数据显示到盒子
-                    var res1 = res.data;
-                    res.tableData = res1;
-                    this.tableData = [res1];
-                    console.log(self.tableData);
-                    // 数据不存在弹框
-                    if (res.data.code == 404)
-                        this.$message({
-                            message: this.formInline.name + ": 不存在",
-                            type: "error",
-                        });
-                    
-                })
-                .catch((e) => {
-                    return { data: { code: "404" } };
-                })
-        },
-        delSubmit() {
-            const res = this.$http
-                .delete("/pets/" + this.formInline.name)
-                .catch((e) => {
-                    return { data: { code: "404" } };
-                })
-                .then((res) => {
-                    //   console.log(res.request.status)
-                    if (res.data.code == 404)
-                        this.$message({
-                            message: this.formInline.name + ": 不存在",
-                            type: "error",
-                        });
-                    if (res.request.status == 204)
-                        this.$message({
-                            message: this.formInline.name + ": 已被删除",
-                            type: "success",
-                        });
-                });
-            window.location.reload();
-        },
-        upSubmit() {
-            const { data: res } = this.$http
-                .put("/pets/" + this.formInline.name) // 请求userdata/{参数}接口  this.formInline:{usernmae}
-                .then(() => {
-                    alert("敬请期待！");
-                });
-        },
-        submit() {
-            const { data: res } = this.$http
-                .post("/pets/", this.petsform)
-                .then(() => {
-                    this.$refs.drawer.closeDrawer();
-                    this.getdata();
-                    this.$message({
-                        message: "数据已创建",
-                        type: "success",
-                    });
-                });
-        },
-        handleClose(done) {
-            this.dialog = false;
-            this.loading = false;
-        },
-        cancelForm() {
-            this.loading = false;
-            this.dialog = false;
-            clearTimeout(this.timer);
-        },
-        getdata() {
-            var self = this;
-            this.$http.get("/pets/").then(function (Response) {
-                var res = Response.data.results;
-                for (var a = 0; a < res.length; a += 1) {
-                    //typeof 类型(参数)
-                    res[a]["weight"] = res[a]["weight"] + " / KG";
-                }
-                self.tableData = res;
-            });
-        },
-    },
-};
+    data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']  //注意要和数据的name相对应
+  },
+  //工具箱
+  toolbox:{
+    show:true,//显示工具箱
+    feature:{
+      dataView:{show:true}, //以文字形式显示数据
+      restore:{show:true},   //还原
+      //dataZoom:{show:true}, //区域缩放
+      saveAsImage:{show:true},  //保存图片
+      //magicType:{type:['line','bar']}//动态数据切换，数据显示可以在该规定内容中切换显示方式，
+    }
+  },
+  //视觉映射组件，将数据映射到视觉元素上
+  visualMap: {
+    show: false,
+    min: 10,
+    max: 650,
+     dimension: 0, //选取数据的维度，如人数据：[身高，体重]，则1代表将体重进行映射，默认值为数组的最后一位
+    // seriesIndex: 4, //选取数据集合中的哪个数组，如{一班}，{二班}，默认选取data中的所有数据集
+    inRange: {
+      //选定了要映射的对象，用inRange详细写要渲染的具体细节，[x，y]中x指最小值对应的量（亮度，饱和度等），y指最大值对应的量，其余的按各自value线性渲染
+      color:['red'],
+      colorLightness: [0,1],
+      colorSaturation:[0,1]
+    }
+  },
+//数据
+  series : [
+    {
+      name:'访问来源',
+      type:'pie',
+      radius : '55%',
+      center: ['50%', '50%'],
+      data:[
+        {value:335, name:'直接访问'},
+        {value:310, name:'邮件营销'},
+        {value:274, name:'联盟广告'},
+        {value:235, name:'视频广告'},
+        {value:400, name:'搜索引擎'}
+      ].sort(function (a, b) { return a.value - b.value; }),
+      roseType: 'radius',//角度和半径展现百分比，'area'只用半径展现
+      label: { //饼图图形的文本标签
+        normal: {  //下同，normal指在普通情况下样式，而非高亮时样式
+          textStyle: {
+            color: 'rgba(255, 255, 255, 0.3)'
+          }
+        }
+      },
+      labelLine: {  //引导线样式
+        normal: {
+          lineStyle: {
+            color: 'rgba(255, 255, 255, 0.3)'
+          },
+          smooth: 0.5, //0-1，越大越平滑弯曲
+          length: 10,  //从块到文字的第一段长
+          length2: 20  //拐弯到文字的段长
+        }
+      },
+      itemStyle: { //图例样式
+        normal: {
+          color: '#97413c',
+          shadowBlur: 50,//阴影模糊程度
+          shadowColor: 'rgba(0, 0, 0, 0.5)'//阴影颜色，一般黑
+        }
+      },
+ 
+      animationType: 'scale', //初始动画效果，scale是缩放，expansion是展开
+      animationEasing: 'elasticOut', //初始动画缓动效果
+      animationDelay: function (idx) {  //数据更新动画时长，idx限定了每个数据块从无到有的速度
+        return Math.random() * 200;
+      }
+    }
+  ]	
+		}}}
+	}	
+
 </script>
 
 
 <style lang="less" scoped>
-.el-table {
-    // 弹性盒子  display: -webkit-flex;  display: flex;  flex-direction: column;
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: column;
-    outline: none;
-    background: transparent;
-    border: none;
-    padding-left: 20px;
+#echartss {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    // box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 }
-.el-input {
-    padding-left: 20px;
-}
-.pagination {
-    text-align: end;
-}
-</style>
 
-<style lang="less">
-.el-drawer__header {
-    font-size: 28px;
-    color: #000;
-    font-weight: bold;
-}
-.el-input .el-input__inner {
-    color: black;
-    width: 91%;
-}
-.el-form-item__label {
-    color: black;
-    font-weight: bold;
-}
-.el-table::before {
-    height: 0;
-}
-.el-table th,
-.el-table tr {
-    background: transparent;
-    border: none;
-    color: black;
-    font-weight: bold;
-    font-size: 15px;
-}
-.el-button--text,
-.el-button--text.is-disabled,
-.el-button--text.is-disabled:focus,
-.el-button--text.is-disabled:hover,
-.el-button--text:active {
-    border-color: #409eff;
-    width: 100px;
-    font-size: 15px;
-    font-weight: bold;
-}
-.el-button--primary {
-    background: 0 0;
-    width: 100px;
-    color: #409eff;
-}
+
 </style>

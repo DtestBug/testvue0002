@@ -23,7 +23,7 @@
         <!-- 菜单1 -->
         <div class="menu1" id="menu_btns">
           <el-form-item class="menu_btn" id="website_btn">
-            <el-button @click="menu1" @keyup.enter.native="menu1">Pets</el-button>
+            <el-button @click="menu1" @keyup.enter.native="menu1">用例结果统计</el-button>
 
           </el-form-item>
         </div>
@@ -31,14 +31,14 @@
         <!-- 菜单2 -->
         <div class="menu2" id="menu_btns">
           <el-form-item class="menu_btn" id="study_btn">
-            <el-button @click="menu2" @keyup.enter.native="menu2">Payment</el-button>
+            <el-button @click="menu2" @keyup.enter.native="menu2">用户信息查询</el-button>
           </el-form-item>
         </div>
 
         <!-- 菜单3 -->
         <div class="menu3" id="menu_btns">
           <el-form-item class="menu_btn" id="A2_btn">
-            <el-button @click="menu3" @keyup.enter.native="menu3">Data detection</el-button>
+            <el-button @click="menu3" @keyup.enter.native="menu3">宠物数据新建</el-button>
           </el-form-item>
         </div>
 
