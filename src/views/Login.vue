@@ -6,7 +6,8 @@
   <!-- <object width="100%" height="64" hidden="true" autostart="true" data="../../src/img/bgm01.mp3"></object> -->
   <div class="login_container">
     <div class="login_box">
-
+      <!-- {{ 函数返回数据  }} -->
+      <h5>{{ slogan }}</h5>
       <!-- :model数据绑定     ：rules数据校验规则 -->
       <el-form
         ref="loginFormRef"
@@ -157,6 +158,10 @@ export default {
     };
   },
 
+  mounted() {
+    this.slogan1(); // 函数入口
+  },
+
   // 数据验证，符合上面的条件ref返回为true
   methods: {
     login() {
@@ -171,6 +176,16 @@ export default {
 
         if (res.code == 400) return this.$message.error("登录失败");  // 弹出错误的提示框
       });
+    },
+
+    slogan1() {
+      // 定义函数，从接口获取数据
+      axios
+        .get("/slogan/", this.slogan1) // 接口地址为/user/slogan/
+        .then((Response) => {
+          //   console.log(Response.data.data);
+          this.slogan = Response.data.data;
+        });
     },
 
     open1() {
@@ -237,7 +252,15 @@ export default {
     border-radius: 10px;
 }
 
-
+h5 {
+  font-family: "Corbel Light";
+  font-weight: bold;
+  margin: 0 0 30px;
+  padding: 0;
+  color: #64d419ec;
+  text-align: center;
+  font-size: 15;
+}
 
 .login_form {
   // 登录box设置
@@ -287,7 +310,6 @@ export default {
   // 输入框设置
   width: 70%;
   letter-spacing: 1px;
-  padding-top: 70px;
   color: #d2f707;
   outline: none;
   background: transparent;
