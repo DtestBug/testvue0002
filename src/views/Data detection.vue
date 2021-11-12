@@ -32,6 +32,7 @@
 
             </el-form>
         </div>
+        
             <el-drawer
                 title="宠 物 信 息 表"
                 :before-close="handleClose"
@@ -109,20 +110,22 @@
                 </div>
             </el-drawer>
         
+        <div class="res_table_pets">
+            <el-table class="table" :data="tableData">
+                <el-table-column prop="name" label="Name"> </el-table-column>
 
-        <el-table class="table" :data="tableData">
-            <el-table-column prop="name" label="Name"> </el-table-column>
+                <el-table-column prop="weight" label="Weight"> </el-table-column>
 
-            <el-table-column prop="weight" label="Weight"> </el-table-column>
+                <el-table-column prop="birthday" label="Birthday">
+                </el-table-column>
 
-            <el-table-column prop="birthday" label="Birthday">
-            </el-table-column>
+                <el-table-column prop="varieties" label="Varieties">
+                </el-table-column>
 
-            <el-table-column prop="varieties" label="Varieties">
-            </el-table-column>
+                <el-table-column prop="color" label="Color"> </el-table-column>
+            </el-table>
+        </div>
 
-            <el-table-column prop="color" label="Color"> </el-table-column>
-        </el-table>
         <div class="pagination">
             <!-- 分页功能 -->
             <el-pagination
@@ -308,7 +311,6 @@ export default {
     outline: none;
     background: transparent;
     border: none;
-    padding-left: 20px;
 }
 .el-input {
     padding-left: 20px;
@@ -319,9 +321,10 @@ export default {
 .dh {
     color: black;
     font-weight: bold;
-	padding-top: 10px;
+	padding-top: 5px;
 	padding-left: 10px;
 }
+
 </style>
 
 <style lang="less">
@@ -364,6 +367,18 @@ export default {
     width: 100px;
     color: #409eff;
 }
+
+.el-pagination button:disabled  {
+    background-color: transparent;
+}
+
+.el-pagination .btn-next {
+    background-color: transparent;
+}
+.el-pagination .btn-prev {
+    background-color: transparent;
+}
+
 .el-icon-date:before{
     content:''
 

@@ -45,21 +45,21 @@
         <!-- 菜单4 -->
         <div class="menu4" id="menu_btns">
           <el-form-item class="menu_btn" id="A4_btn">
-            <el-button @click="menu4" @keyup.enter.native="menu4">Template2</el-button>
+            <el-button @click="menu4" @keyup.enter.native="menu4">测试用例管理</el-button>
           </el-form-item>
         </div>
 
         <!-- 菜单5 -->
         <div class="menu5" id="menu_btns">
           <el-form-item class="menu_btn" id="A5_btn">
-            <el-button @click="menu5" @keyup.enter.native="menu5">settings</el-button>
+            <el-button @click="menu5" @keyup.enter.native="menu5">用例批量执行</el-button>
           </el-form-item>
         </div>
 
         <!-- 菜单6 -->
         <div class="menu6" id="menu_btns">
           <el-form-item class="menu_btn" id="A6_btn">
-            <el-button @click="menu6" @keyup.enter.native="menu6">About</el-button>
+            <el-button @click="menu6" @keyup.enter.native="menu6">关于我们</el-button>
           </el-form-item>
         </div>
         </el-form>
@@ -133,7 +133,7 @@ export default {
 .box1 {
   width: 99%;
   left: 0.5%;
-  height: 15%;
+  height: 14%;
   position: absolute;
   padding: 15px;
   background: rgba(0, 0, 0, 0.9);
@@ -145,7 +145,7 @@ export default {
 // 下方盒子2
 .box2 {
   position: absolute;
-  top: 15%;
+  top: 14%;
   width: 100%;
   height: 85%;
   // box-sizing: border-box;
