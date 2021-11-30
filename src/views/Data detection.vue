@@ -141,6 +141,8 @@
 
 
 <script>
+import login from './Login.vue';
+
 export default {
     // 设置头部标题都可以用 document.title，这个是通用的，我也可以这样设置，如下
     page() {
@@ -188,8 +190,9 @@ export default {
         handleCurrentChange(val) {
             var self = this;
             // console.log(`${val}`);
+
             const res = this.$http
-                .get("/pets/", { params: { page: `${val}` } })
+                .get("/pets/",{headers: {Authorization: "Bearer "+ttoken}} ,{params: { page: `${val}` } })
                 .catch((e) => {
                     return { data: { code: "404" } };
                 })
@@ -216,9 +219,9 @@ export default {
         },
         // 查询
         onSubmit() {
-            
+            let ttoken = localStorage.token;
             const res = this.$http
-                .get("/pets/" + this.formInline.name) // 请求userdata/{参数}接口  this.formInline:{usernmae}
+                .get("/pets/" + this.formInline.name, {headers: {Authorization: "Bearer "+ttoken}}) // 请求userdata/{参数}接口  this.formInline:{usernmae}
                 .then((res) => {
                     // 数据显示到盒子
                     var res1 = res.data;
@@ -238,8 +241,9 @@ export default {
                 })
         },
         delSubmit() {
+            let ttoken = localStorage.token;
             const res = this.$http
-                .delete("/pets/" + this.formInline.name)
+                .delete("/pets/" + this.formInline.name, {headers: {Authorization: "Bearer "+ttoken}})
                 .catch((e) => {
                     return { data: { code: "404" } };
                 })
@@ -266,8 +270,9 @@ export default {
                 });
         },
         submit() {
+            let ttoken = localStorage.token;
             const { data: res } = this.$http
-                .post("/pets/", this.petsform)
+                .post("/pets/", this.petsform, {headers: {Authorization: "Bearer "+ttoken}})
                 .then(() => {
                     this.$refs.drawer.closeDrawer();
                     this.getdata();
@@ -288,7 +293,9 @@ export default {
         },
         getdata() {
             var self = this;
-            this.$http.get("/pets/").then(function (Response) {
+            let ttoken = localStorage.token;
+
+            this.$http.get("/pets/", {headers: {Authorization: "Bearer "+ttoken}}).then(function (Response) {
                 var res = Response.data.results;
                 for (var a = 0; a < res.length; a += 1) {
                     //typeof 类型(参数)
@@ -297,6 +304,10 @@ export default {
                 self.tableData = res;
             });
         },
+
+        gettoken(){
+            return 
+        }
     },
 };
 </script>

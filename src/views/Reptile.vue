@@ -110,7 +110,7 @@ export default {
 			const res = this.$http
                 .post(url + "/account/login",
 			{
-				"mobile": "11022222222",
+				"mobile": this.formInline.mobile,
 				"tracingType": "IDFA",
 				"code": "8562",
 				"ct": "iOS",

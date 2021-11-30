@@ -45,7 +45,7 @@
         <!-- 菜单4 -->
         <div class="menu4" id="menu_btns">
           <el-form-item class="menu_btn" id="A4_btn">
-            <el-button @click="menu4" @keyup.enter.native="menu4">测试用例管理</el-button>
+            <el-button @click="menu4" @keyup.enter.native="menu4">学生信息管理</el-button>
           </el-form-item>
         </div>
 
@@ -89,26 +89,26 @@ export default {
   // 数据验证，符合上面的条件ref返回为true
   methods: {
     menu1() {
-      return this.$router.push({path: "/general"}, onComplete => {}, onAbort => {}); // General菜单
+      return this.$router.push({path: "/general"}, onComplete => {}, onAbort => {}); // 用例结果统计
     
             },
     menu2() {
-      return this.$router.push({path: "/reptile"}, onComplete => {}, onAbort => {}); // Reptile菜单
+      return this.$router.push({path: "/reptile"}, onComplete => {}, onAbort => {}); // 用户信息查询
             },
 
     menu3() {
-      return this.$router.push({path: "/data"}, onComplete => {}, onAbort => {}); // Data detection菜单
+      return this.$router.push({path: "/data"}, onComplete => {}, onAbort => {}); // 宠物数据新建
             },
     menu4() {
-      return this.$router.push({path: "/template2"}, onComplete => {}, onAbort => {}); // Template2菜单
+      return this.$router.push({path: "/template2"}, onComplete => {}, onAbort => {}); // 学生信息管理
             },
 
     menu5() {
-      return this.$router.push({path: "/settings"}, onComplete => {}, onAbort => {}); // Settings菜单
+      return this.$router.push({path: "/settings"}, onComplete => {}, onAbort => {}); // 用例批量执行
             },
 
     menu6() {
-      return this.$router.push({path: "/about"}, onComplete => {}, onAbort => {}); // About菜单
+      return this.$router.push({path: "/about"}, onComplete => {}, onAbort => {}); // 关于我们
             },
 
   },
@@ -126,7 +126,7 @@ export default {
   height: 100%;
   width: 100% ;
   background-color: red; /* 浏览器不支持时显示 */
-  background-image: linear-gradient(#7c7676, #2e1818);
+  background-image: linear-gradient(#2F4F4F, #ffffff);
 }
 
 // 上方盒子1

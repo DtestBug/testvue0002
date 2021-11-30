@@ -106,7 +106,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-            // 宠物表单
+
+      // 用户表单
       registerform: {
         username: "",
         password: "",
@@ -172,7 +173,12 @@ export default {
           .catch((e) => {
             return { data: { code: "400" } };
           });
-        if (res.hasOwnProperty("username")) return this.$router.push({path: "/home"}, onComplete => {}, onAbort => {}); // this.$message.success('登录失败');this.$message.success成功提示框
+        if (res.hasOwnProperty("username"))
+        {
+        this.$router.push({path: "/home"}, onComplete => {}, onAbort => {}); // this.$message.success('登录失败');this.$message.success成功提示框
+        console.log(res.token)
+        return localStorage.setItem("token", res.token);
+        } 
 
         if (res.code == 400) return this.$message.error("登录失败");  // 弹出错误的提示框
       });
@@ -194,6 +200,7 @@ export default {
       type: 'success'
       });
     },
+
 
     submit() {
       const { data: res } = this.$http
