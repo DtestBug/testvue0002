@@ -10,7 +10,7 @@
                     <el-input
                         oninput="if(value.length > 11)value = value.slice(0, 10)"
                         v-model="formInline.name"
-                        placeholder="输入学生名字可以查删改"
+                        placeholder="输入宠物名可以查删改"
                     ></el-input>
             </el-form-item>
 
@@ -34,30 +34,34 @@
         </div>
         
             <el-drawer
-                title="学生信息表"
+                title="宠 物 信 息 表"
                 :before-close="handleClose"
                 :visible.sync="dialog"
                 custom-class="demo-drawer"
                 ref="drawer"
             >
                 <div class="demo-drawer__content">
-                    <el-form :model="studentsform">
+                    <el-form :model="petsform">
                         <el-form-item
-                            label="学生名字"
+                            label="宠物名字 *"
                             :label-width="formLabelWidth"
                         >
                             <el-input
-                                v-model="studentsform.name"
+                                v-model="petsform.name"
+                                oninput="if(value.length>=10)value = value.slice(0,10)"
+                                placeholder="请输入"
                                 autocomplete="off"
                             ></el-input>
                         </el-form-item>
 
                         <el-form-item
-                            label="年龄"
+                            label="体重 *"
                             :label-width="formLabelWidth"
                         >
                             <el-input
-                                v-model="studentsform.age"
+                                v-model="petsform.weight"
+                                oninput="if(value.length>=3)value = value.slice(0,3)"
+                                placeholder="请输入"
                                 autocomplete="off"
                             ></el-input>
                         </el-form-item>
@@ -65,95 +69,41 @@
 
                     <el-form :model="form">
                         <el-form-item
-                             label="期望薪资"
+                            label="出生日期 *"
+                            :label-width="formLabelWidth"
+                        >
+                            <el-date-picker
+                                type="date"
+                                placeholder="选择日期"
+                                v-model="petsform.birthday"
+                                value-format="yyyy-MM-dd"
+                                style="width: 100%"
+                            ></el-date-picker>
+                        </el-form-item>
+
+                        <el-form-item
+                            label="品种 *"
                             :label-width="formLabelWidth"
                         >
                             <el-input
-                                v-model="studentsform.salary"
+                                v-model="petsform.varieties"
+                                oninput="if(value.length>=50)value = value.slice(0,50)"
+                                placeholder="请输入"
                                 autocomplete="off"
                             ></el-input>
                         </el-form-item>
 
                         <el-form-item
-                            label="意向公司"
+                            label="颜色 *"
                             :label-width="formLabelWidth"
                         >
                             <el-input
-                                v-model="studentsform.intended_company"
+                                v-model="petsform.color"
+                                oninput="if(value.length>=20)value = value.slice(0,20)"
+                                placeholder="请输入"
                                 autocomplete="off"
                             ></el-input>
                         </el-form-item>
-
-                        <el-form-item
-                            label="学历及专业"
-                            :label-width="formLabelWidth"
-                        >
-                            <el-input
-                                v-model="studentsform.education"
-                                autocomplete="off"
-                            ></el-input>
-                        </el-form-item>
-
-                        <el-form-item
-                            label="面试阶段"
-                            :label-width="formLabelWidth"
-                        >
-                            <el-input
-                                v-model="studentsform.interview_stage"
-                                autocomplete="off"
-                            ></el-input>
-                        </el-form-item>
-
-                        <el-form-item
-                            label="外包公司"
-                            :label-width="formLabelWidth"
-                        >
-                            <el-input
-                                v-model="studentsform.outsourcing_company"
-                                autocomplete="off"
-                            ></el-input>
-                        </el-form-item>
-
-                        <el-form-item
-                            label="住址"
-                            :label-width="formLabelWidth"
-                        >
-                            <el-input
-                                v-model="studentsform.address"
-                                autocomplete="off"
-                            ></el-input>
-                        </el-form-item>
-
-                        <el-form-item
-                            label="是否可推"
-                            :label-width="formLabelWidth"
-                        >
-                            <el-input
-                                v-model="studentsform.isPush"
-                                autocomplete="off"
-                            ></el-input>
-                        </el-form-item>
-
-                        <el-form-item
-                            label="备注"
-                            :label-width="formLabelWidth"
-                        >
-                            <el-input
-                                v-model="studentsform.remarks"
-                                autocomplete="off"
-                            ></el-input>
-                        </el-form-item>
-
-                        <el-form-item
-                            label="负责人"
-                            :label-width="formLabelWidth"
-                        >
-                            <el-input
-                                v-model="studentsform.person_in_charge"
-                                autocomplete="off"
-                            ></el-input>
-                        </el-form-item>
-
                     </el-form>
 
                     <div class="demo-drawer__footer">
@@ -168,31 +118,19 @@
                 </div>
             </el-drawer>
         
-        <div class="res_table_students">
+        <div class="res_table_pets">
             <el-table class="table" :data="tableData">
-                <el-table-column prop="name" label="姓名"> </el-table-column>
+                <el-table-column prop="name" label="Name"> </el-table-column>
 
-                <el-table-column prop="age" label="年龄"> </el-table-column>
+                <el-table-column prop="weight" label="Weight"> </el-table-column>
 
-                <el-table-column prop="salary" label="薪资">
+                <el-table-column prop="birthday" label="Birthday">
                 </el-table-column>
 
-                <el-table-column prop="intended_company" label="意向公司">
+                <el-table-column prop="varieties" label="Varieties">
                 </el-table-column>
 
-                <el-table-column prop="education" label="学历/专业"> </el-table-column>
-
-                <el-table-column prop="interview_stage" label="面试阶段"> </el-table-column>
-
-                <el-table-column prop="outsourcing_company" label="外包公司"> </el-table-column>
-
-                <el-table-column prop="address" label="住址"> </el-table-column>
-
-                <el-table-column prop="isPush" label="是否推送"> </el-table-column>
-
-                <el-table-column prop="remarks" label="备注"> </el-table-column>
-
-                <el-table-column prop="person_in_charge" label="负责人"> </el-table-column>
+                <el-table-column prop="color" label="Color"> </el-table-column>
             </el-table>
         </div>
 
@@ -211,6 +149,8 @@
 
 
 <script>
+import login from './Login.vue';
+
 export default {
     // 设置头部标题都可以用 document.title，这个是通用的，我也可以这样设置，如下
     page() {
@@ -224,18 +164,12 @@ export default {
                 name: "",
             },
             // 宠物表单
-            studentsform: {
+            petsform: {
                 name: "",
-                age: "",
-                salary: "",
-                intended_company: "",
-                education: "",
-                interview_stage: "",
-                outsourcing_company: "",
-                address: "",
-                isPush: "",
-                remarks: "",
-                person_in_charge: "",
+                weight: "",
+                birthday: "",
+                varieties: "",
+                color: "",
             },
             tableData: [],
             dialog: false,
@@ -262,15 +196,17 @@ export default {
             console.log(`每页 ${val} 条`);
         },
         handleCurrentChange(val) {
+            let ttoken = localStorage.token;
             var self = this;
             // console.log(`${val}`);
+
             const res = this.$http
-                .get("/students/", { params: { page: `${val}` } })
+                .get("/pets/",{headers: {Authorization: "Bearer "+ttoken}} ,{params: { page: `${val}` } })
                 .catch((e) => {
                     return { data: { code: "404" } };
                 })
                 .then(function (Response) {
-                    // console.log(Response)
+                    console.log(111122,res)
                     if (Response.status == 200) {
                         var res = Response.data.results;
                         for (var a = 0; a < res.length; a += 1) {
@@ -294,7 +230,7 @@ export default {
         onSubmit() {
             let ttoken = localStorage.token;
             const res = this.$http
-                .get("/students/" + this.formInline.name, {headers: {Authorization: "Bearer "+ttoken}}) // 请求userdata/{参数}接口  this.formInline:{usernmae}
+                .get("/pets/" + this.formInline.name, {headers: {Authorization: "Bearer "+ttoken}}) // 请求userdata/{参数}接口  this.formInline:{usernmae}
                 .then((res) => {
                     // 数据显示到盒子
                     var res1 = res.data;
@@ -316,7 +252,7 @@ export default {
         delSubmit() {
             let ttoken = localStorage.token;
             const res = this.$http
-                .delete("/students/" + this.formInline.name, {headers: {Authorization: "Bearer "+ttoken}})
+                .delete("/pets/" + this.formInline.name, {headers: {Authorization: "Bearer "+ttoken}})
                 .catch((e) => {
                     return { data: { code: "404" } };
                 })
@@ -336,9 +272,8 @@ export default {
             window.location.reload();
         },
         upSubmit() {
-            let ttoken = localStorage.token;
             const { data: res } = this.$http
-                .put("/students/" + this.formInline.name, {headers: {Authorization: "Bearer "+ttoken}}) // 请求userdata/{参数}接口  this.formInline:{usernmae}
+                .put("/pets/" + this.formInline.name) // 请求userdata/{参数}接口  this.formInline:{usernmae}
                 .then(() => {
                     alert("敬请期待！");
                 });
@@ -346,8 +281,9 @@ export default {
         submit() {
             let ttoken = localStorage.token;
             const { data: res } = this.$http
-                .post("/students/", this.studentsform, {headers: {Authorization: "Bearer "+ttoken}})
+                .post("/pets/", this.petsform, {headers: {Authorization: "Bearer "+ttoken}})
                 .then(() => {
+
                     this.$refs.drawer.closeDrawer();
                     this.getdata();
                     this.$message({
@@ -365,10 +301,12 @@ export default {
             this.dialog = false;
             clearTimeout(this.timer);
         },
+
         getdata() {
-            let ttoken = localStorage.token;
             var self = this;
-            this.$http.get("/students/", {headers: {Authorization: "Bearer "+ttoken}}).then(function (Response) {
+            let ttoken = localStorage.token;
+            this.$http.get("/pets/", {headers: {Authorization: "Bearer "+ttoken}})
+            .then((Response) => {
                 var res = Response.data.results;
                 for (var a = 0; a < res.length; a += 1) {
                     //typeof 类型(参数)
@@ -377,6 +315,10 @@ export default {
                 self.tableData = res;
             });
         },
+
+        gettoken(){
+            return 
+        }
     },
 };
 </script>

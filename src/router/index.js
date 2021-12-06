@@ -17,36 +17,42 @@ const routes = [
     name: 'Home',
     component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
     children:[
-      {path: '/home', redirect: '/general'},  
+      {path: '/home', redirect: '/casereport'},  
 
       {
-          path: '/general',
-          name: 'General',
-          component: () => import(/* webpackChunkName: "general" */ '../views/General.vue')
+          path: '/casereport',
+          name: 'Casereport',
+          component: () => import(/* webpackChunkName: "casereport" */ '../views/Casereport.vue')
       },
 
       {
-        path: '/reptile',
-        name: 'Reptile',
-        component: () => import(/* webpackChunkName: "reptile" */ '../views/Reptile.vue')
+        path: '/getuser',
+        name: 'Getuser',
+        component: () => import(/* webpackChunkName: "getuser" */ '../views/Getuser.vue')
       },
 
       {
-        path: '/data',
-        name: 'Data',
-        component: () => import(/* webpackChunkName: "data" */ '../views/Data detection.vue')
+        path: '/pets',
+        name: 'Pets',
+        component: () => import(/* webpackChunkName: "pets" */ '../views/Pets.vue')
       },
 
       {
-        path: '/template2',
-        name: 'Template2',
-        component: () => import(/* webpackChunkName: "template2" */ '../views/Template2.vue')
+        path: '/students',
+        name: 'Students',
+        component: () => import(/* webpackChunkName: "students" */ '../views/Students.vue')
       },
 
       {
-        path: '/settings',
-        name: 'Settings',
-        component: () => import(/* webpackChunkName: "settings" */ '../views/Settings.vue')
+        path: '/case',
+        name: 'Case',
+        component: () => import(/* webpackChunkName: "case" */ '../views/Case.vue')
+      },
+
+      {
+        path: '/runcase',
+        name: 'Runcase',
+        component: () => import(/* webpackChunkName: "runcase" */ '../views/Runcase.vue')
       },
 
       {

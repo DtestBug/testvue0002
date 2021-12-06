@@ -20,6 +20,7 @@
         <el-form-item prop="username" class="login_input" id="login_user">
           <el-input
             class="txt_input"
+            placeholder="请输入用户名"
             v-model="loginForm.username"
             prefix-icon="el-icon-s-custom"
           ></el-input>
@@ -29,6 +30,7 @@
         <el-form-item prop="password" class="login_input" id="login_pwd">
           <el-input
             class="txt_input"
+            placeholder="请输入密码"
             v-model="loginForm.password"
             prefix-icon="el-icon-lock"
             type="password"
@@ -56,31 +58,45 @@
         title="用 户 注 册 表"
         :before-close="handleClose"
         :visible.sync="dialog"
+        :rules="registerRules"
         custom-class="demo-drawer"
         ref="drawer"
       >
         <div class="demo-drawer__content">
           <el-form :model="registerform">
-            <el-form-item label="用户名" :label-width="formLabelWidth">
-              <el-input v-model="registerform.username" autocomplete="off"></el-input>
+            <el-form-item  prop="username" label="用户名 *" :label-width="formLabelWidth">
+              <el-input 
+              oninput="if(value.length>=20)value = value.slice(0,20)"
+              placeholder="最少输入6位字符"
+              v-model="registerform.username" 
+              autocomplete="off"
+              ></el-input>
             </el-form-item>
 
-            <el-form-item label="密码" :label-width="formLabelWidth">
-              <el-input v-model="registerform.password" autocomplete="off"></el-input>
+            <el-form-item prop="password" label="密码 *" :label-width="formLabelWidth"> 
+              <el-input 
+              v-model="registerform.password" 
+              oninput="if(value.length>=20)value = value.slice(0,20)"
+              placeholder="最少输入6位字符"
+              autocomplete="off"
+              ></el-input>
             </el-form-item>
           </el-form>
 
           <el-form :model="form">
-            <el-form-item label="确认密码" :label-width="formLabelWidth">
+            <el-form-item label="确认密码 *" :label-width="formLabelWidth">
               <el-input
                 v-model="registerform.password_confirm"
+                oninput="if(value.length>=20)value = value.slice(0,20)"
+                placeholder="最少输入6位字符"
                 autocomplete="off"
               ></el-input>
             </el-form-item>
 
-            <el-form-item label="邮箱" :label-width="formLabelWidth">
+            <el-form-item label="邮箱 *" :label-width="formLabelWidth">
               <el-input
                 v-model="registerform.email"
+                placeholder="请按格式输入邮箱"
                 autocomplete="off"
               ></el-input>
             </el-form-item>
@@ -133,7 +149,7 @@ export default {
         password: "",
       },
 
-      // 表单的验证规则对象
+      // 登录表单的验证规则对象
       loginFormRules: {
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
@@ -194,23 +210,43 @@ export default {
         });
     },
 
-    open1() {
+    register_success() {
     this.$message({
       message: '用户已注册',
       type: 'success'
       });
     },
 
+    register_error() {
+    this.$message({
+      message: '注册信息填写有误',
+      type: 'error'
+      });
+    },
+
 
     submit() {
-      const { data: res } = this.$http
-      .post("/register/", this.registerform)
-      .then(() => {
-      this.$refs.drawer.closeDrawer();
-      this.open1()
-    console.log(this.registerform.data)
-        });
-    },
+      var self = this  // 需要赋值
+      const res = self.$http
+      .post("/register/", self.registerform)
+      .catch((e) => {   // 捕获异常
+          return { data: { status: "404" } };
+      })
+      .then(function (Response) {  // 结果
+        if (Response.status == 201) {  // 判断201
+          self.$refs.drawer.closeDrawer();  // 关闭弹窗
+          self.register_success()  // message提示
+
+        }
+
+        if (Response.data.status == 404) {
+          console.log(111)
+          // self.$refs.drawer.closeDrawer();  // 关闭弹窗
+          self.register_error()
+        }
+          })
+      },
+
     handleClose(done) {
         this.dialog = false;
         this.loading = false;
@@ -273,6 +309,7 @@ h5 {
   // 登录box设置
   bottom: 0;
   width: 100%;
+  // color: #000;
 }
 
 // ::v-deep
@@ -329,11 +366,10 @@ h5 {
   line-height: 2;
 }
 
-#login_pwd .el-form-item__error {
+.login_box #login_user .el-form-item__error {
   left: 62px;
   line-height: 2;
 }
-
 
 element.style {
     width: 100%;

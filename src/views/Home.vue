@@ -52,14 +52,21 @@
         <!-- 菜单5 -->
         <div class="menu5" id="menu_btns">
           <el-form-item class="menu_btn" id="A5_btn">
-            <el-button @click="menu5" @keyup.enter.native="menu5">用例批量执行</el-button>
+            <el-button @click="menu5" @keyup.enter.native="menu5">用例管理</el-button>
           </el-form-item>
         </div>
 
         <!-- 菜单6 -->
         <div class="menu6" id="menu_btns">
           <el-form-item class="menu_btn" id="A6_btn">
-            <el-button @click="menu6" @keyup.enter.native="menu6">关于我们</el-button>
+            <el-button @click="menu6" @keyup.enter.native="menu6">执行用例</el-button>
+          </el-form-item>
+        </div>
+
+        <!-- 菜单7 -->
+        <div class="menu7" id="menu_btns">
+          <el-form-item class="menu_btn" id="A7_btn">
+            <el-button @click="menu7" @keyup.enter.native="menu7">关于我们</el-button>
           </el-form-item>
         </div>
         </el-form>
@@ -89,25 +96,29 @@ export default {
   // 数据验证，符合上面的条件ref返回为true
   methods: {
     menu1() {
-      return this.$router.push({path: "/general"}, onComplete => {}, onAbort => {}); // 用例结果统计
+      return this.$router.push({path: "/casereport"}, onComplete => {}, onAbort => {}); // 用例结果统计
     
             },
     menu2() {
-      return this.$router.push({path: "/reptile"}, onComplete => {}, onAbort => {}); // 用户信息查询
+      return this.$router.push({path: "/getuser"}, onComplete => {}, onAbort => {}); // 用户信息查询
             },
 
     menu3() {
-      return this.$router.push({path: "/data"}, onComplete => {}, onAbort => {}); // 宠物数据新建
+      return this.$router.push({path: "/pets"}, onComplete => {}, onAbort => {}); // 宠物数据新建
             },
     menu4() {
-      return this.$router.push({path: "/template2"}, onComplete => {}, onAbort => {}); // 学生信息管理
+      return this.$router.push({path: "/students"}, onComplete => {}, onAbort => {}); // 学生信息管理
             },
 
     menu5() {
-      return this.$router.push({path: "/settings"}, onComplete => {}, onAbort => {}); // 用例批量执行
+      return this.$router.push({path: "/case"}, onComplete => {}, onAbort => {}); // 用例管理
+            },
+    
+    menu6() {
+      return this.$router.push({path: "/runcase"}, onComplete => {}, onAbort => {}); // 用例执行
             },
 
-    menu6() {
+    menu7() {
       return this.$router.push({path: "/about"}, onComplete => {}, onAbort => {}); // 关于我们
             },
 
